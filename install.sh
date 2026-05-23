@@ -2112,9 +2112,9 @@ nginxBlog() {
             #  randomNum=$((RANDOM % 6 + 1))
             randomNum=$(randomNum 1 9)
             if [[ "${release}" == "alpine" ]]; then
-                wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
+                wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
             else
-                wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
+                wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
             fi
 
             unzip -o "${nginxStaticPath}html${randomNum}.zip" -d "${nginxStaticPath}" >/dev/null
@@ -2127,9 +2127,9 @@ nginxBlog() {
         rm -rf "${nginxStaticPath}*"
 
         if [[ "${release}" == "alpine" ]]; then
-            wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
+            wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
         else
-            wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
+            wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip"
         fi
 
         unzip -o "${nginxStaticPath}html${randomNum}.zip" -d "${nginxStaticPath}" >/dev/null
@@ -4812,7 +4812,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+TCP+TLS_Vision)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${currentHost}%3A${port}%3Fencryption%3Dnone%26fp%3Dchrome%26security%3Dtls%26type%3Dtcp%26${currentHost}%3D${currentHost}%26headerType%3Dnone%26sni%3D${currentHost}%26flow%3Dxtls-rprx-vision%23${email}\n"
 
     elif [[ "${type}" == "vmessws" ]]; then
         qrCodeBase64Default=$(echo -n "{\"port\":${port},\"ps\":\"${email}\",\"tls\":\"tls\",\"id\":\"${id}\",\"aid\":0,\"v\":2,\"host\":\"${currentHost}\",\"type\":\"none\",\"path\":\"${path}\",\"net\":\"ws\",\"add\":\"${add}\",\"method\":\"none\",\"peer\":\"${currentHost}\",\"sni\":\"${currentHost}\"}" | base64 -w 0)
@@ -4849,7 +4848,6 @@ EOF
 
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vmess://${qrCodeBase64Default}\n"
 
     elif [[ "${type}" == "vlessws" ]]; then
 
@@ -4883,7 +4881,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+WS+TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${add}%3A${port}%3Fencryption%3Dnone%26security%3Dtls%26type%3Dws%26host%3D${currentHost}%26fp%3Dchrome%26sni%3D${currentHost}%26path%3D${path}%23${email}"
 
     elif [[ "${type}" == "vlessXHTTP" ]]; then
 
@@ -4918,7 +4915,6 @@ EOF
 EOF
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+reality+XHTTP)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${add}%3A${port}%3Fencryption%3Dnone%26security%3Dreality%26type%3Dxhttp%26sni%3D${xrayVLESSRealityXHTTPServerName}%26fp%3Dchrome%26path%3D${path}%26host%3D${xrayVLESSRealityXHTTPServerName}%26pbk%3D${currentRealityXHTTPPublicKey}%26sid%3D6ba85179e30d4fc2%23${email}\n"
 
     elif
         [[ "${type}" == "vlessgrpc" ]]
@@ -4952,7 +4948,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+gRPC+TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${add}%3A${port}%3Fencryption%3Dnone%26security%3Dtls%26type%3Dgrpc%26host%3D${currentHost}%26serviceName%3D${currentPath}grpc%26fp%3Dchrome%26path%3D${currentPath}grpc%26sni%3D${currentHost}%26alpn%3Dh2%23${email}"
 
     elif [[ "${type}" == "trojan" ]]; then
         # URLEncode
@@ -4977,7 +4972,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 Trojan(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan%3a%2f%2f${id}%40${currentHost}%3a${port}%3fpeer%3d${currentHost}%26fp%3Dchrome%26sni%3d${currentHost}%26alpn%3Dhttp/1.1%23${email}\n"
 
     elif [[ "${type}" == "trojangrpc" ]]; then
         # URLEncode
@@ -5004,7 +4998,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 Trojan gRPC(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan%3a%2f%2f${id}%40${add}%3a${port}%3Fencryption%3Dnone%26fp%3Dchrome%26security%3Dtls%26peer%3d${currentHost}%26type%3Dgrpc%26sni%3d${currentHost}%26path%3D${currentPath}trojangrpc%26alpn%3Dh2%26serviceName%3D${currentPath}trojangrpc%23${email}\n"
 
     elif [[ "${type}" == "hysteria" ]]; then
         echoContent yellow " ---> Hysteria(TLS)"
@@ -5041,7 +5034,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 Hysteria2(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=hysteria2%3A%2F%2F${id}%40${currentHost}%3A${singBoxHysteria2Port}%3F${multiPortEncode}peer%3D${currentHost}%26insecure%3D0%26sni%3D${currentHost}%26alpn%3Dh3%23${email}\n"
 
     elif [[ "${type}" == "vlessReality" ]]; then
         local realityServerName=${xrayVLESSRealityServerName}
@@ -5081,7 +5073,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+reality+uTLS+Vision)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40$(getPublicIP)%3A${port}%3Fencryption%3Dnone%26security%3Dreality%26type%3Dtcp%26sni%3D${realityServerName}%26fp%3Dchrome%26pbk%3D${publicKey}%26sid%3D6ba85179e30d4fc2%26flow%3Dxtls-rprx-vision%23${email}\n"
 
     elif [[ "${type}" == "vlessRealityGRPC" ]]; then
         local realityServerName=${xrayVLESSRealityServerName}
@@ -5125,7 +5116,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 VLESS(VLESS+reality+uTLS+gRPC)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40$(getPublicIP)%3A${port}%3Fencryption%3Dnone%26security%3Dreality%26type%3Dgrpc%26sni%3D${realityServerName}%26fp%3Dchrome%26pbk%3D${publicKey}%26sid%3D6ba85179e30d4fc2%26path%3Dgrpc%26serviceName%3Dgrpc%23${email}\n"
     elif [[ "${type}" == "tuic" ]]; then
         local tuicUUID=
         tuicUUID=$(echo "${id}" | awk -F "[_]" '{print $1}')
@@ -5166,7 +5156,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow "\n ---> 二维码 Tuic"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=tuic%3A%2F%2F${tuicUUID}%3A${tuicPassword}%40${currentHost}%3A${tuicPort}%3Fcongestion_control%3D${tuicAlgorithm}%26alpn%3Dh3%26sni%3D${currentHost}%26udp_relay_mode%3Dquic%26allow_insecure%3D0%23${email}\n"
     elif [[ "${type}" == "naive" ]]; then
         echoContent yellow " ---> Naive(TLS)"
 
@@ -5175,7 +5164,6 @@ EOF
 naive+https://${email}:${id}@${currentHost}:${port}?padding=true#${email}
 EOF
         echoContent yellow " ---> 二维码 Naive(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=naive%2Bhttps%3A%2F%2F${email}%3A${id}%40${currentHost}%3A${port}%3Fpadding%3Dtrue%23${email}\n"
     elif [[ "${type}" == "vmessHTTPUpgrade" ]]; then
         qrCodeBase64Default=$(echo -n "{\"port\":${port},\"ps\":\"${email}\",\"tls\":\"tls\",\"id\":\"${id}\",\"aid\":0,\"v\":2,\"host\":\"${currentHost}\",\"type\":\"none\",\"path\":\"${path}\",\"net\":\"httpupgrade\",\"add\":\"${add}\",\"method\":\"none\",\"peer\":\"${currentHost}\",\"sni\":\"${currentHost}\"}" | base64 -w 0)
         qrCodeBase64Default="${qrCodeBase64Default// /}"
@@ -5212,7 +5200,6 @@ EOF
 
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vmess://${qrCodeBase64Default}\n"
 
     elif [[ "${type}" == "anytls" ]]; then
         echoContent yellow " ---> AnyTLS"
@@ -5242,7 +5229,6 @@ EOF
         echo "${singBoxSubscribeLocalConfig}" | jq . >"/etc/v2ray-agent/subscribe_local/sing-box/${user}"
 
         echoContent yellow " ---> 二维码 AnyTLS"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=anytls%3A%2F%2F${id}%40${currentHost}%3A${singBoxAnyTLSPort}%3Fpeer%3D${currentHost}%26insecure%3D0%26sni%3D${currentHost}%23${email}\n"
     fi
 
 }
@@ -5650,9 +5636,9 @@ updateNginxBlog() {
         rm -rf "${nginxStaticPath}*"
 
         if [[ "${release}" == "alpine" ]]; then
-            wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip"
+            wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip"
         else
-            wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip"
+            wget -q "${wgetShowProgressStatus}" -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip"
         fi
 
         unzip -o "${nginxStaticPath}html${selectInstallNginxBlogType}.zip" -d "${nginxStaticPath}" >/dev/null
@@ -6266,9 +6252,9 @@ updateV2RayAgent() {
     echoContent skyBlue "\n进度  $1/${totalProgress} : 更新v2ray-agent脚本"
     rm -rf /etc/v2ray-agent/install.sh
     if [[ "${release}" == "alpine" ]]; then
-        wget -c -q -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh"
+        wget -c -q -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh"
     else
-        wget -c -q "${wgetShowProgressStatus}" -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh"
+        wget -c -q "${wgetShowProgressStatus}" -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh"
     fi
 
     sudo chmod 700 /etc/v2ray-agent/install.sh
@@ -6279,40 +6265,9 @@ updateV2RayAgent() {
     echoContent yellow " ---> 请手动执行[vasma]打开脚本"
     echoContent green " ---> 当前版本：${version}\n"
     echoContent yellow "如更新不成功，请手动执行下面命令\n"
-    echoContent skyBlue "wget -P /root -N --no-check-certificate https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh && chmod 700 /root/install.sh && /root/install.sh"
+    echoContent skyBlue "wget -P /root -N --no-check-certificate https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh && chmod 700 /root/install.sh && /root/install.sh"
     echo
     exit 0
-}
-
-# 防火墙
-handleFirewall() {
-    if systemctl status ufw 2>/dev/null | grep -q "active (exited)" && [[ "$1" == "stop" ]]; then
-        systemctl stop ufw >/dev/null 2>&1
-        systemctl disable ufw >/dev/null 2>&1
-        echoContent green " ---> ufw关闭成功"
-
-    fi
-
-    if systemctl status firewalld 2>/dev/null | grep -q "active (running)" && [[ "$1" == "stop" ]]; then
-        systemctl stop firewalld >/dev/null 2>&1
-        systemctl disable firewalld >/dev/null 2>&1
-        echoContent green " ---> firewalld关闭成功"
-    fi
-}
-
-# 安装BBR
-bbrInstall() {
-    echoContent red "\n=============================================================="
-    echoContent green "BBR、DD脚本用的[ylx2016]的成熟作品，地址[https://github.com/ylx2016/Linux-NetSpeed]，请熟知"
-    echoContent yellow "1.安装脚本【推荐原版BBR+FQ】"
-    echoContent yellow "2.回退主目录"
-    echoContent red "=============================================================="
-    read -r -p "请选择:" installBBRStatus
-    if [[ "${installBBRStatus}" == "1" ]]; then
-        wget -O tcpx.sh "https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
-    else
-        menu
-    fi
 }
 
 # 查看、检查日志
@@ -9379,7 +9334,6 @@ subscribe() {
                     echoContent skyBlue "\n----------默认订阅----------\n"
                     echoContent green "email:${email}\n"
                     echoContent yellow "url:${subscribeType}://${currentDomain}/s/default/${emailMd5}\n"
-                    echoContent yellow "在线二维码:https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${subscribeType}://${currentDomain}/s/default/${emailMd5}\n"
                     if [[ "${release}" != "alpine" ]]; then
                         echo "${subscribeType}://${currentDomain}/s/default/${emailMd5}" | qrencode -s 10 -m 1 -t UTF8
                     fi
@@ -9395,7 +9349,6 @@ subscribe() {
                         clashMetaConfig "${clashProxyUrl}" "${emailMd5}"
                         echoContent skyBlue "\n----------clashMeta订阅----------\n"
                         echoContent yellow "url:${subscribeType}://${currentDomain}/s/clashMetaProfiles/${emailMd5}\n"
-                        echoContent yellow "在线二维码:https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${subscribeType}://${currentDomain}/s/clashMetaProfiles/${emailMd5}\n"
                         if [[ "${release}" != "alpine" ]]; then
                             echo "${subscribeType}://${currentDomain}/s/clashMetaProfiles/${emailMd5}" | qrencode -s 10 -m 1 -t UTF8
                         fi
@@ -9407,9 +9360,9 @@ subscribe() {
 
                         echoContent skyBlue " ---> 下载 sing-box 通用配置文件"
                         if [[ "${release}" == "alpine" ]]; then
-                            wget -O "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}" -q "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/documents/sing-box.json"
+                            wget -O "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}" -q "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/documents/sing-box.json"
                         else
-                            wget -O "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}" -q "${wgetShowProgressStatus}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/documents/sing-box.json"
+                            wget -O "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}" -q "${wgetShowProgressStatus}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/documents/sing-box.json"
                         fi
 
                         jq ".outbounds=$(jq ".outbounds|map(if has(\"outbounds\") then .outbounds += $(jq ".|map(.tag)" "/etc/v2ray-agent/subscribe_local/sing-box/${email}") else . end)" "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}")" "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}" >"/etc/v2ray-agent/subscribe/sing-box/${emailMd5}_tmp" && mv "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}_tmp" "/etc/v2ray-agent/subscribe/sing-box/${emailMd5}"
@@ -9417,7 +9370,6 @@ subscribe() {
 
                         echoContent skyBlue "\n----------sing-box订阅----------\n"
                         echoContent yellow "url:${subscribeType}://${currentDomain}/s/sing-box/${emailMd5}\n"
-                        echoContent yellow "在线二维码:https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${subscribeType}://${currentDomain}/s/sing-box/${emailMd5}\n"
                         if [[ "${release}" != "alpine" ]]; then
                             echo "${subscribeType}://${currentDomain}/s/sing-box/${emailMd5}" | qrencode -s 10 -m 1 -t UTF8
                         fi
@@ -9979,21 +9931,10 @@ menu() {
     echoContent red "\n=============================================================="
     echoContent green "作者：mack-a"
     echoContent green "当前版本：v3.5.19"
-    echoContent green "Github：https://github.com/mack-a/v2ray-agent"
+    echoContent green "Github：https://github.com/chengcct/v2ray-agent"
     echoContent green "描述：八合一共存脚本\c"
     showInstallStatus
     checkWgetShowProgress
-    echoContent red "\n=========================== 推广区============================"
-    echoContent red "                                              "
-    echoContent yellow "VPS选购攻略"
-    echoContent green "https://www.v2ray-agent.com/archives/1679975663984"
-    echoContent yellow "年付10美金低价VPS AS4837"
-    echoContent green "https://www.v2ray-agent.com/archives/racknerdtao-can-zheng-li-nian-fu-10mei-yuan"
-    echoContent yellow "优质常驻套餐DMIT CN2-GIA"
-    echoContent green "https://www.v2ray-agent.com/archives/186cee7b-9459-4e57-b9b2-b07a4f36931c"
-    echoContent yellow "VPS探针：https://ping.v2ray-agent.com/"
-    echoContent red "                                              "
-    echoContent red "=============================================================="
     if [[ -n "${coreInstallType}" ]]; then
         echoContent yellow "1.重新安装"
     else
@@ -10018,7 +9959,6 @@ menu() {
     echoContent skyBlue "-------------------------版本管理-----------------------------"
     echoContent yellow "16.core管理"
     echoContent yellow "17.更新脚本"
-    echoContent yellow "18.安装BBR、DD脚本"
     echoContent skyBlue "-------------------------脚本管理-----------------------------"
     echoContent yellow "20.卸载脚本"
     echoContent red "=============================================================="
@@ -10076,9 +10016,6 @@ menu() {
         ;;
     17)
         updateV2RayAgent 1
-        ;;
-    18)
-        bbrInstall
         ;;
     20)
         unInstall 1

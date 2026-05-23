@@ -1453,7 +1453,7 @@ acmeInstallSSL() {
         txtValue=$(tail -n 10 /etc/v2ray-agent/tls/acme.log | grep "TXT value" | awk -F "'" '{print $2}')
         if [[ -n "${txtValue}" ]]; then
             echoContent green " ---> Please add DNS TXT record manually"
-            echoContent yellow " ---> Please refer to this tutorial for adding method, https://github.com/mack-a/v2ray-agent/blob/master/documents/dns_txt.md"
+            echoContent yellow " ---> Please refer to this tutorial for adding method, https://github.com/chengcct/v2ray-agent/blob/master/documents/dns_txt.md"
             echoContent yellow " ---> Just like installing wildcard certificates on multiple machines with the same domain name, please add multiple TXT records. There is no need to modify the previously added TXT records."
             echoContent green " ---> name: _acme-challenge"
             echoContent green " ---> value: ${txtValue}"
@@ -1670,7 +1670,7 @@ nginxBlog() {
         if [[ "${nginxBlogInstallStatus}" == "y" ]]; then
             rm -rf "${nginxStaticPath}"
             randomNum=$((RANDOM % 6 + 1))
-            wget -q -P "${nginxStaticPath}" https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip >/dev/null
+            wget -q -P "${nginxStaticPath}" https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip >/dev/null
             unzip -o "${nginxStaticPath}html${randomNum}.zip" -d "${nginxStaticPath}" >/dev/null
             rm -f "${nginxStaticPath}html${randomNum}.zip*"
             echoContent green " ---> Added fake site successfully"
@@ -1678,7 +1678,7 @@ nginxBlog() {
     else
         randomNum=$((RANDOM % 6 + 1))
         rm -rf "${nginxStaticPath}"
-        wget -q -P "${nginxStaticPath}" https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip >/dev/null
+        wget -q -P "${nginxStaticPath}" https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${randomNum}.zip >/dev/null
         unzip -o "${nginxStaticPath}html${randomNum}.zip" -d "${nginxStaticPath}" >/dev/null
         rm -f "${nginxStaticPath}html${randomNum}.zip*"
         echoContent green " ---> Added fake site successfully"
@@ -3891,7 +3891,6 @@ EOF
     client-fingerprint: chrome
 EOF
             echoContent yellow " ---> QR code VLESS(VLESS+TCP+TLS_Vision)"
-            echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${currentHost}%3A${currentDefaultPort}%3Fencryption%3Dnone%26fp%3Dchrome%26security%3Dtls%26type%3Dtcp%26${currentHost}%3D${currentHost}%26headerType%3Dnone%26sni%3D${currentHost}%26flow%3Dxtls-rprx-vision%23${email}\n"
         elif [[ "${coreInstallType}" == 2 ]]; then
             echoContent yellow " ---> Universal format (VLESS+TCP+TLS)"
             echoContent green "    vless://${id}@${currentHost}:${currentDefaultPort}?security=tls&encryption=none&host=${currentHost}&fp=chrome&headerType=none&type=tcp#${email}\n"
@@ -3903,7 +3902,6 @@ EOF
 vless://${id}@${currentHost}:${currentDefaultPort}?security=tls&encryption=none&host=${currentHost}&fp=chrome&headerType=none&type=tcp#${email}
 EOF
             echoContent yellow " ---> QR code VLESS(VLESS+TCP+TLS)"
-            echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3a%2f%2f${id}%40${currentHost}%3a${currentDefaultPort}%3fsecurity%3dtls%26encryption%3dnone%26fp%3Dchrome%26host%3d${currentHost}%26headerType%3dnone%26type%3dtcp%23${email}\n"
         fi
 
     elif [[ "${type}" == "trojanTCPXTLS" ]]; then
@@ -3916,7 +3914,6 @@ EOF
 trojan://${id}@${currentHost}:${currentDefaultPort}?encryption=none&security=xtls&type=tcp&host=${currentHost}&headerType=none&sni=${currentHost}&flow=xtls-rprx-vision#${email}
 EOF
         echoContent yellow " ---> QR code Trojan(Trojan+TCP+TLS_Vision)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan%3A%2F%2F${id}%40${currentHost}%3A${currentDefaultPort}%3Fencryption%3Dnone%26security%3Dxtls%26type%3Dtcp%26${currentHost}%3D${currentHost}%26headerType%3Dnone%26sni%3D${currentHost}%26flow%3Dxtls-rprx-vision%23${email}\n"
 
     elif [[ "${type}" == "vmessws" ]]; then
         qrCodeBase64Default=$(echo -n "{\"port\":${currentDefaultPort},\"ps\":\"${email}\",\"tls\":\"tls\",\"id\":\"${id}\",\"aid\":0,\"v\":2,\"host\":\"${currentHost}\",\"type\":\"none\",\"path\":\"/${currentPath}vws\",\"net\":\"ws\",\"add\":\"${add}\",\"allowInsecure\":0,\"method\":\"none\",\"peer\":\"${currentHost}\",\"sni\":\"${currentHost}\"}" | base64 -w 0)
@@ -3949,7 +3946,6 @@ EOF
       headers:
         Host: ${currentHost}
 EOF
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vmess://${qrCodeBase64Default}\n"
 
     elif [[ "${type}" == "vlessws" ]]; then
 
@@ -3980,7 +3976,6 @@ EOF
 EOF
 
         echoContent yellow " ---> QR code VLESS(VLESS+WS+TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${add}%3A${currentDefaultPort}%3Fencryption%3Dnone%26security%3Dtls%26type%3Dws%26host%3D${currentHost}%26fp%3Dchrome%26sni%3D${currentHost}%26path%3D%252f${currentPath}ws%23${email}"
 
     elif [[ "${type}" == "vlessgrpc" ]]; then
 
@@ -4008,7 +4003,6 @@ EOF
       grpc-service-name: ${currentPath}grpc
 EOF
         echoContent yellow " ---> QR code VLESS(VLESS+gRPC+TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40${add}%3A${currentDefaultPort}%3Fencryption%3Dnone%26security%3Dtls%26type%3Dgrpc%26host%3D${currentHost}%26serviceName%3D${currentPath}grpc%26fp%3Dchrome%26path%3D${currentPath}grpc%26sni%3D${currentHost}%26alpn%3Dh2%23${email}"
 
     elif [[ "${type}" == "trojan" ]]; then
         # URLEncode
@@ -4030,7 +4024,6 @@ EOF
     sni: ${currentHost}
 EOF
         echoContent yellow " ---> QR code Trojan(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan%3a%2f%2f${id}%40${currentHost}%3a${port}%3fpeer%3d${currentHost}%26fp%3Dchrome%26sni%3d${currentHost}%26alpn%3Dhttp/1.1%23${email}\n"
 
     elif [[ "${type}" == "trojangrpc" ]]; then
         # URLEncode
@@ -4053,7 +4046,6 @@ EOF
       grpc-service-name: ${currentPath}trojangrpc
 EOF
         echoContent yellow " ---> QR code Trojan gRPC(TLS)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan%3a%2f%2f${id}%40${add}%3a${currentDefaultPort}%3Fencryption%3Dnone%26fp%3Dchrome%26security%3Dtls%26peer%3d${currentHost}%26type%3Dgrpc%26sni%3d${currentHost}%26path%3D${currentPath}trojangrpc%26alpn%3Dh2%26serviceName%3D${currentPath}trojangrpc%23${email}\n"
 
     elif [[ "${type}" == "hysteria" ]]; then
         local hysteriaEmail=
@@ -4121,7 +4113,6 @@ EOF
         if [[ -n "${mport}" ]]; then
             mport="mport%3D${portHoppingStart}-${portHoppingEnd}%26"
         fi
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=hysteria%3A%2F%2F${currentHost}%3A${hysteriaPort}%3F${mport}protocol%3D${hysteriaProtocol}%26auth%3D${id}%26peer%3D${currentHost}%26insecure%3D0%26alpn%3Dh3%26upmbps%3D${hysteriaClientUploadSpeed}%26downmbps%3D${hysteriaClientDownloadSpeed}%23${hysteriaEmail}\n"
     elif [[ "${type}" == "vlessReality" ]]; then
         echoContent yellow " ---> Universal format (VLESS+reality+uTLS+Vision)"
         echoContent green "    vless://${id}@$(getPublicIP):${currentRealityPort}?encryption=none&security=reality&type=tcp&sni=${currentRealityServerNames}&fp=chrome&pbk=${currentRealityPublicKey}&sid=6ba85179e30d4fc2&flow=xtls-rprx-vision#${email}\n"
@@ -4148,7 +4139,6 @@ EOF
     client-fingerprint: chrome
 EOF
         echoContent yellow " ---> QR code VLESS(VLESS+reality+uTLS+Vision)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40$(getPublicIP)%3A${currentRealityPort}%3Fencryption%3Dnone%26security%3Dreality%26type%3Dtcp%26sni%3D${currentRealityServerNames}%26fp%3Dchrome%26pbk%3D${currentRealityPublicKey}%26pbk%3D6ba85179e30d4fc2%26flow%3Dxtls-rprx-vision%23${email}\n"
 
     elif [[ "${type}" == "vlessRealityGRPC" ]]; then
         echoContent yellow " ---> Universal format (VLESS+reality+uTLS+gRPC)"
@@ -4177,7 +4167,6 @@ EOF
     client-fingerprint: chrome
 EOF
         echoContent yellow " ---> QR code VLESS(VLESS+reality+uTLS+gRPC)"
-        echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3A%2F%2F${id}%40$(getPublicIP)%3A${currentRealityPort}%3Fencryption%3Dnone%26security%3Dreality%26type%3Dgrpc%26sni%3D${currentRealityServerNames}%26fp%3Dchrome%26pbk%3D${currentRealityPublicKey}%26pbk%3D6ba85179e30d4fc2%26path%3Dgrpc%26serviceName%3Dgrpc%23${email}\n"
     elif [[ "${type}" == "tuic" ]]; then
 
         if [[ -z "${email}" ]]; then
@@ -4565,7 +4554,7 @@ updateNginxBlog() {
     if [[ "${selectInstallNginxBlogType}" =~ ^[1-9]$ ]]; then
         rm -rf "${nginxStaticPath}"
 
-        wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip" >/dev/null
+        wget -q -P "${nginxStaticPath}" "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/fodder/blog/unable/html${selectInstallNginxBlogType}.zip" >/dev/null
 
         unzip -o "${nginxStaticPath}html${selectInstallNginxBlogType}.zip" -d "${nginxStaticPath}" >/dev/null
         rm -f "${nginxStaticPath}html${selectInstallNginxBlogType}.zip*"
@@ -5198,9 +5187,9 @@ updateV2RayAgent() {
     echoContent skyBlue "\nProgress$1/${totalProgress}: Update v2ray-agent script"
     rm -rf /etc/v2ray-agent/install.sh
     # if wget --help | grep -q show-progress; then
-    wget -c -q "${wgetShowProgressStatus}" -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh"
+    wget -c -q "${wgetShowProgressStatus}" -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh"
     #else
-    # wget -c -q -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh"
+    # wget -c -q -P /etc/v2ray-agent/ -N --no-check-certificate "https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh"
     #fi
 
     sudo chmod 700 /etc/v2ray-agent/install.sh
@@ -5211,40 +5200,9 @@ updateV2RayAgent() {
     echoContent yellow " ---> Please manually execute [vasma] to open the script"
     echoContent green " ---> Current version: ${version}\n"
     echoContent yellow "If the update fails, please manually execute the following command\n"
-    echoContent skyBlue "wget -P /root -N --no-check-certificate https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh && chmod 700 /root/install.sh && /root/install.sh"
+    echoContent skyBlue "wget -P /root -N --no-check-certificate https://raw.githubusercontent.com/chengcct/v2ray-agent/master/install.sh && chmod 700 /root/install.sh && /root/install.sh"
     echo
     exit 0
-}
-
-# firewall
-handleFirewall() {
-    if systemctl status ufw 2>/dev/null | grep -q "active (exited)" && [[ "$1" == "stop" ]]; then
-        systemctl stop ufw >/dev/null 2>&1
-        systemctl disable ufw >/dev/null 2>&1
-        echoContent green " ---> ufw closed successfully"
-
-    fi
-
-    if systemctl status firewalld 2>/dev/null | grep -q "active (running)" && [[ "$1" == "stop" ]]; then
-        systemctl stop firewalld >/dev/null 2>&1
-        systemctl disable firewalld >/dev/null 2>&1
-        echoContent green " ---> firewalld closed successfully"
-    fi
-}
-
-# Install BBR
-bbrInstall() {
-    echoContent red "\n================================================ ================="
-    echoContent green "The mature works of [ylx2016] used for BBR and DD scripts, the address [https://github.com/ylx2016/Linux-NetSpeed], please be familiar with it"
-    echoContent yellow "1.Installation script [recommended original BBR+FQ]"
-    echoContent yellow "2.Return to the home directory"
-    echoContent red "================================================== ==============="
-    read -r -p "Please select:" installBBRStatus
-    if [[ "${installBBRStatus}" == "1" ]]; then
-        wget -N --no-check-certificate "https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
-    else
-        menu
-    fi
 }
 
 # View and check logs
@@ -7668,7 +7626,6 @@ subscribe() {
                 echoContent skyBlue "\n----------Default subscription----------\n"
                 echoContent green "email:${email}\n"
                 echoContent yellow "url:https://${currentDomain}/s/default/${emailMd5}\n"
-                echoContent yellow "Online QR code: https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://${currentDomain}/s/default/${emailMd5}\n "
                 echo "https://${currentDomain}/s/default/${emailMd5}" | qrencode -s 10 -m 1 -t UTF8
 
                 #clashMeta
@@ -7692,7 +7649,6 @@ subscribe() {
                     clashMetaConfig "${clashProxyUrl}" "${emailMd5}"
                     echoContent skyBlue "\n----------clashMeta subscription----------\n"
                     echoContent yellow "url:https://${currentDomain}/s/clashMetaProfiles/${emailMd5}\n"
-                    echoContent yellow "Online QR code: https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://${currentDomain}/s/clashMetaProfiles/${emailMd5}\n "
                     echo "https://${currentDomain}/s/clashMetaProfiles/${emailMd5}" | qrencode -s 10 -m 1 -t UTF8
                 fi
 
@@ -8094,16 +8050,10 @@ menu() {
     echoContent red "\n================================================ ================="
     echoContent green "Author: mack-a"
     echoContent green "Current version: v3.5.13"
-    echoContent green "Github: https://github.com/mack-a/v2ray-agent"
+    echoContent green "Github: https://github.com/chengcct/v2ray-agent"
     echoContent green "Description: 8-in-1 coexistence script\c"
     showInstallStatus
     checkWgetShowProgress
-    echoContent red "\n============================ Promotion area================ ============"
-    echoContent red " "
-    echoContent green "For promotion, please contact TG: @mackaff\n"
-    echoContent green "VPS purchasing guide: https://www.v2ray-agent.com/archives/1679975663984"
-    echoContent green "Low-price VPS AS4837 with an annual payment of 10 US dollars: https://www.v2ray-agent.com/archives/racknerdtao-can-zheng-li-nian-fu-10mei-yuan"
-    echoContent red "================================================== ==============="
     if [[ -n "${coreInstallType}" ]]; then
         echoContent yellow "1.Reinstall"
     else
@@ -8133,7 +8083,6 @@ menu() {
     echoContent skyBlue "-------------------------Version Management-------------------- ---------"
     echoContent yellow "16.core management"
     echoContent yellow "17.Update script"
-    echoContent yellow "18.Install BBR and DD scripts"
     echoContent skyBlue "-------------------------Script Management-------------------- --- ------"
     echoContent yellow "19.View log"
     echoContent yellow "20.Uninstall script"
@@ -8192,9 +8141,6 @@ menu() {
         ;;
     17)
         updateV2RayAgent 1
-        ;;
-    18)
-        bbrInstall
         ;;
     19)
         checkLog 1
